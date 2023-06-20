@@ -3,7 +3,6 @@ import sys
 import numpy as np
 from helper import *
 
-# Initialize Pygame
 pygame.init()
 screen = pygame.display.set_mode((800, 600), pygame.RESIZABLE)
 pygame.display.set_caption("Conway's Game of Life")
@@ -15,10 +14,8 @@ GRID_W, GRID_H = 2000, 2000
 WIDTH, HEIGHT = screen.get_size()
 NUM_CELLS_H, NUM_CELLS_V = GRID_W // TILE_SIZE, GRID_H // TILE_SIZE
 
-# Define the camera offset
 camera_offset = [GRID_W//2, GRID_H//2]
 
-# Initialize cells with random values using NumPy
 cells = np.random.randint(2, size=(NUM_CELLS_V, NUM_CELLS_H))
 
 # Colors
@@ -27,7 +24,6 @@ CELL_COLOR = (200,200,200)
 LINE_COLOR = (128, 128, 128)
 
 
-# Game loop
 while True:
     dt = clock.tick(30) / 1000
 
@@ -44,10 +40,8 @@ while True:
                 # Updating game
                 cells = apply_rules(cells)
 
-    # Handle camera panning
     camera_offset = get_camera_offset(pygame.key.get_pressed(), camera_offset, dt)
 
-    # Clear the screen
     screen.fill(BACKGROUND)
 
     # Draw cells
@@ -66,5 +60,4 @@ while True:
     for y in range(0, GRID_H, TILE_SIZE):
         pygame.draw.line(screen, LINE_COLOR, (0 - camera_offset[0], y - camera_offset[1]), (GRID_W - camera_offset[0], y - camera_offset[1]), line_thickness)
 
-    # Update the display
     pygame.display.flip()
